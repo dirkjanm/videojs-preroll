@@ -5,15 +5,15 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-      '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' +
-      ' Licensed <%= pkg.license %> */\n',
+      '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n* Copyright (c) 2014 The Onion\n' +
+      '* Licensed <%= pkg.license %> */\n',
     clean: {
       files: ['dist']
     },
     concat: {
       options: {
         banner: '<%= banner %>',
-        stripBanners: true
+        stripBanners: {block:true}
       },
       dist: {
         src: 'src/**/*.js',

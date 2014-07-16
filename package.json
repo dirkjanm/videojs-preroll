@@ -1,8 +1,8 @@
 {
   "name": "videojs-preroll",
-  "version": "0.0.0",
-  "author": "Dirk-jan",
-  "description": "A revolutionary plugin for video.js",
+  "version": "0.1.0",
+  "author": "Sano Webdevelopment",
+  "description": "Simple preroll ads plugin for video.js",
   "license": "MIT",
   "keywords": [
     "videojs",
@@ -19,7 +19,7 @@
     "grunt-contrib-qunit": "^0.2",
     "grunt-contrib-uglify": "^0.2",
     "grunt-contrib-watch": "^0.4",
-    
+
     "video.js": "^4.5",
     "qunitjs": "^1.12"
   },
