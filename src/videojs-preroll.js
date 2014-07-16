@@ -1,5 +1,7 @@
-/*! videojs-preroll - v0.0.0 - 2014-07-16
-* Copyright (c) 2014 Dirk-jan; Licensed MIT */
+/*! videojs-preroll - v0.1.0 - 2014-07-16
+* Copyright (c) 2014 Sano Webdevelopment;
+* Copyright (c) 2014 The Onion
+* Licensed MIT */
 (function(window, videojs) {
   'use strict';
 
