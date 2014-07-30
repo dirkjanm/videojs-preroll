@@ -64,6 +64,12 @@ Default: 5
 
 Number of seconds after which the video can be skipped
 
+#### repeatAd
+Type: `Boolean`
+Default: false
+
+Whether the ad should be repeated if a new src is loaded to the player
+
 ## Credits
 
 Uses javascript and css for video skipping and linking block from The Onions [videojs-vast-plugin](https://github.com/theonion/videojs-vast-plugin/)

@@ -10,7 +10,8 @@
     href : '',
     target: '_blank',
     allowSkip: true,
-    skipTime: 5
+    skipTime: 5,
+    repeatAds: false
   }, prerollPlugin;
 
   /**
@@ -24,10 +25,13 @@
     player.on('contentupdate', function() {
       player.trigger('adsready');
     });
-    player.preroll = {};
+    player.preroll = {adDone:false};
     player.on('readyforpreroll', function() {
       // No video? No ad.
       if (settings.src === ''){
+        return;
+      }
+      if (player.preroll.adDone === true){
         return;
       }
 
@@ -75,6 +79,9 @@
       player.preroll.blocker.parentNode.removeChild(player.preroll.blocker);
       player.off('timeupdate', player.preroll.timeupdate);
       player.off('ended', player.preroll.exitPreroll);
+      if (settings.repeatAds !== true){
+        player.preroll.adDone=true;
+      }
       player.ads.endLinearAdMode();
     };
     player.preroll.timeupdate = function(e) {
