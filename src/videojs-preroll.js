@@ -58,7 +58,7 @@
         skipButton.onclick = function(e) {
           var Event = Event || window.Event;
           if((' ' + player.preroll.skipButton.className + ' ').indexOf(' enabled ') >= 0) {
-            player.preroll.tearDown();
+            player.preroll.exitPreroll();
           }
           if(Event.prototype.stopPropagation !== undefined) {
             e.stopPropagation();

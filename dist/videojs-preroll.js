@@ -1,4 +1,4 @@
-/*! videojs-preroll - v0.1.0 - 2014-07-16
+/*! videojs-preroll - v0.1.0 - 2014-07-30
 * Copyright (c) 2014 Sano Webdevelopment;
 * Copyright (c) 2014 The Onion
 * Licensed MIT */
@@ -58,7 +58,7 @@
         skipButton.onclick = function(e) {
           var Event = Event || window.Event;
           if((' ' + player.preroll.skipButton.className + ' ').indexOf(' enabled ') >= 0) {
-            player.preroll.tearDown();
+            player.preroll.exitPreroll();
           }
           if(Event.prototype.stopPropagation !== undefined) {
             e.stopPropagation();
