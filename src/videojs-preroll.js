@@ -38,8 +38,13 @@
       // Initialize ad mode
       player.ads.startLinearAdMode();
       // Change player src to ad src
+
       player.src(settings.src);
       player.one('durationchange', function() {
+        player.play();
+      });
+      //Fallback in case preload = none
+      player.one('progress', function() {
         player.play();
       });
 
