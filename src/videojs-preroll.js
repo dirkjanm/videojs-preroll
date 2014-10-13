@@ -78,12 +78,14 @@
       }
       player.one('ended', player.preroll.exitPreroll);
       player.on('timeupdate', player.preroll.timeupdate);
+      player.one('error', player.preroll.prerollError);
     });
     player.preroll.exitPreroll = function() {
       player.preroll.skipButton.parentNode.removeChild(player.preroll.skipButton);
       player.preroll.blocker.parentNode.removeChild(player.preroll.blocker);
       player.off('timeupdate', player.preroll.timeupdate);
       player.off('ended', player.preroll.exitPreroll);
+      player.off('error', player.preroll.prerollError);
       if (settings.repeatAd !== true){
         player.preroll.adDone=true;
       }
@@ -100,6 +102,9 @@
           player.preroll.skipButton.innerHTML = 'Skip';
         }
       }
+    };
+    player.preroll.prerollError = function(e){
+      player.preroll.exitPreroll();
     };
   };
 
