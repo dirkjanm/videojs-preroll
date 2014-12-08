@@ -79,6 +79,7 @@ Uses javascript and css for video skipping and linking block from The Onions [vi
 ###v0.2.0
 - Updated videojs-contrib-ads library to v0.5.0 and made the preroll plugin compatible with it
 - Fixed some of the loading events to start playback faster if there is no ad to be displayed
+
 ###v0.1.0
 - Initial release
 
