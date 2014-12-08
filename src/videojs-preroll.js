@@ -37,27 +37,31 @@
 
       // Initialize ad mode
       player.ads.startLinearAdMode();
-      // Change player src to ad src
 
+      // Change player src to ad src
       player.src(settings.src);
       player.one('durationchange', function() {
         player.play();
       });
+
       //Fallback in case preload = none
       player.one('progress', function() {
         player.play();
       });
 
-      // link overlay
-      var blocker = document.createElement('a');
-      blocker.className = 'preroll-blocker';
-      blocker.href = settings.href || '#';
-      blocker.target = settings.target || '_blank';
-      blocker.onclick = function() {
-        player.trigger('adclick');
-      };
-      player.preroll.blocker = blocker;
-      player.el().insertBefore(blocker, player.controlBar.el());
+      if(settings.href !== ''){
+        // link overlay
+        var blocker = document.createElement('a');
+        blocker.className = 'preroll-blocker';
+        blocker.href = settings.href;
+        blocker.target = settings.target || '_blank';
+        blocker.onclick = function() {
+          player.trigger('adclick');
+        };
+        player.preroll.blocker = blocker;
+        player.el().insertBefore(blocker, player.controlBar.el());
+      }
+
       if (settings.allowSkip !== false){
         var skipButton = document.createElement('div');
         skipButton.className = 'preroll-skip-button';
@@ -81,8 +85,12 @@
       player.one('error', player.preroll.prerollError);
     });
     player.preroll.exitPreroll = function() {
-      player.preroll.skipButton.parentNode.removeChild(player.preroll.skipButton);
-      player.preroll.blocker.parentNode.removeChild(player.preroll.blocker);
+      if(typeof player.preroll.skipButton !== 'undefined'){
+        player.preroll.skipButton.parentNode.removeChild(player.preroll.skipButton);
+      }
+      if(typeof player.preroll.blocker !== 'undefined'){
+        player.preroll.blocker.parentNode.removeChild(player.preroll.blocker);
+      }
       player.off('timeupdate', player.preroll.timeupdate);
       player.off('ended', player.preroll.exitPreroll);
       player.off('error', player.preroll.prerollError);

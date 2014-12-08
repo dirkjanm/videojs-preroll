@@ -1,4 +1,4 @@
-/*! videojs-preroll - v0.1.0 - 2014-07-30
+/*! videojs-preroll - v0.1.0 - 2014-12-08
 * Copyright (c) 2014 Sano Webdevelopment;
 * Copyright (c) 2014 The Onion
 * Licensed MIT */
@@ -11,7 +11,7 @@
     target: '_blank',
     allowSkip: true,
     skipTime: 5,
-    repeatAds: false
+    repeatAd: false
   }, prerollPlugin;
 
   /**
@@ -37,22 +37,31 @@
 
       // Initialize ad mode
       player.ads.startLinearAdMode();
+
       // Change player src to ad src
       player.src(settings.src);
       player.one('durationchange', function() {
         player.play();
       });
 
-      // link overlay
-      var blocker = document.createElement('a');
-      blocker.className = 'preroll-blocker';
-      blocker.href = settings.href || '#';
-      blocker.target = settings.target || '_blank';
-      blocker.onclick = function() {
-        player.trigger('adclick');
-      };
-      player.preroll.blocker = blocker;
-      player.el().insertBefore(blocker, player.controlBar.el());
+      //Fallback in case preload = none
+      player.one('progress', function() {
+        player.play();
+      });
+
+      if(settings.href !== ''){
+        // link overlay
+        var blocker = document.createElement('a');
+        blocker.className = 'preroll-blocker';
+        blocker.href = settings.href;
+        blocker.target = settings.target || '_blank';
+        blocker.onclick = function() {
+          player.trigger('adclick');
+        };
+        player.preroll.blocker = blocker;
+        player.el().insertBefore(blocker, player.controlBar.el());
+      }
+
       if (settings.allowSkip !== false){
         var skipButton = document.createElement('div');
         skipButton.className = 'preroll-skip-button';
@@ -73,13 +82,19 @@
       }
       player.one('ended', player.preroll.exitPreroll);
       player.on('timeupdate', player.preroll.timeupdate);
+      player.one('error', player.preroll.prerollError);
     });
     player.preroll.exitPreroll = function() {
-      player.preroll.skipButton.parentNode.removeChild(player.preroll.skipButton);
-      player.preroll.blocker.parentNode.removeChild(player.preroll.blocker);
+      if(typeof player.preroll.skipButton !== 'undefined'){
+        player.preroll.skipButton.parentNode.removeChild(player.preroll.skipButton);
+      }
+      if(typeof player.preroll.blocker !== 'undefined'){
+        player.preroll.blocker.parentNode.removeChild(player.preroll.blocker);
+      }
       player.off('timeupdate', player.preroll.timeupdate);
       player.off('ended', player.preroll.exitPreroll);
-      if (settings.repeatAds !== true){
+      player.off('error', player.preroll.prerollError);
+      if (settings.repeatAd !== true){
         player.preroll.adDone=true;
       }
       player.ads.endLinearAdMode();
@@ -95,6 +110,9 @@
           player.preroll.skipButton.innerHTML = 'Skip';
         }
       }
+    };
+    player.preroll.prerollError = function(e){
+      player.preroll.exitPreroll();
     };
   };
 
