@@ -22,16 +22,18 @@
    */
   prerollPlugin = function(options) {
     var settings = videojs.util.mergeOptions(defaults, options), player = this;
-    player.on('contentupdate', function() {
-      player.trigger('adsready');
-    });
     player.preroll = {adDone:false};
+    player.on('contentupdate', function() {
+      if(!player.preroll.shouldPlayPreroll()){
+        player.trigger('adscanceled');
+      }else{
+        player.trigger('adsready');
+      }
+    });
     player.on('readyforpreroll', function() {
       // No video? No ad.
-      if (settings.src === ''){
-        return;
-      }
-      if (player.preroll.adDone === true){
+      if(!player.preroll.shouldPlayPreroll()){
+        player.trigger('adscanceled');
         return;
       }
 
@@ -84,6 +86,15 @@
       player.on('timeupdate', player.preroll.timeupdate);
       player.one('error', player.preroll.prerollError);
     });
+    player.preroll.shouldPlayPreroll = function(){
+      if (settings.src === ''){
+        return false;
+      }
+      if (player.preroll.adDone === true){
+        return false;
+      }
+      return true;
+    };
     player.preroll.exitPreroll = function() {
       if(typeof player.preroll.skipButton !== 'undefined'){
         player.preroll.skipButton.parentNode.removeChild(player.preroll.skipButton);
@@ -114,6 +125,13 @@
     player.preroll.prerollError = function(e){
       player.preroll.exitPreroll();
     };
+    if (player.currentSrc()) {
+      if(player.preroll.shouldPlayPreroll()){
+        player.trigger('adsready');
+      }else{
+        player.trigger('adscanceled');
+      }
+    }
   };
 
   // register the plugin
