@@ -1,4 +1,4 @@
-/*! videojs-preroll - v0.1.0 - 2014-07-16
+/*! videojs-preroll - v0.2.0 - 2014-12-08
 * Copyright (c) 2014 Sano Webdevelopment;
 * Copyright (c) 2014 The Onion
 * Licensed MIT */

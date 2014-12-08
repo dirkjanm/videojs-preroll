@@ -1,6 +1,6 @@
 {
   "name": "videojs-preroll",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Sano Webdevelopment",
   "description": "Simple preroll ads plugin for video.js",
   "license": "MIT",
