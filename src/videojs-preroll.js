@@ -114,7 +114,7 @@
       player.loadingSpinner.el().style.display = 'none';
       var timeLeft = Math.ceil(settings.skipTime - player.currentTime());
       if(timeLeft > 0) {
-        player.preroll.skipButton.innerHTML = 'Skip in ' + timeLeft + '...';
+        if (settings.allowSkip !== false) player.preroll.skipButton.innerHTML = 'Skip in ' + timeLeft + '...';
       } else {
         if((' ' + player.preroll.skipButton.className + ' ').indexOf(' enabled ') === -1){
           player.preroll.skipButton.className += ' enabled';
