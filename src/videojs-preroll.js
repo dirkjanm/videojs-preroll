@@ -81,9 +81,9 @@
             return false;
           }
         };
+        player.on('timeupdate', player.preroll.timeupdate);
       }
       player.one('ended', player.preroll.exitPreroll);
-      player.on('timeupdate', player.preroll.timeupdate);
       player.one('error', player.preroll.prerollError);
     });
     player.preroll.shouldPlayPreroll = function(){
