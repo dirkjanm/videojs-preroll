@@ -1,4 +1,4 @@
-/*! videojs-preroll - v0.2.0 - 2014-12-08
+/*! videojs-preroll - v0.2.0 - 2014-12-19
 * Copyright (c) 2014 Sano Webdevelopment;
 * Copyright (c) 2014 The Onion
 * Licensed MIT */
@@ -81,9 +81,9 @@
             return false;
           }
         };
+        player.on('timeupdate', player.preroll.timeupdate);
       }
       player.one('ended', player.preroll.exitPreroll);
-      player.on('timeupdate', player.preroll.timeupdate);
       player.one('error', player.preroll.prerollError);
     });
     player.preroll.shouldPlayPreroll = function(){
