@@ -32,10 +32,12 @@
     </p>
   </div>
   <video id="video"
-         class="video-js vjs-default-skin"
+         class="video-js vjs-default-skin vjs-big-play-centered"
          height="300"
          width="600"
-         controls>
+         preload="none"
+         controls
+         autoplay>
     <p>
       Your browser doesn't support video. Please <a href="http://browsehappy.com/">upgrade your browser</a> to see the example.
     </p>
@@ -44,10 +46,22 @@
   </video>
   <script src="node_modules/video.js/dist/video-js/video.js"></script>
   <script src="lib/videojs.ads.js"></script>
+  <script src="lib/videojs-youtube.js"></script>
   <script src="src/videojs-preroll.js"></script>
   <script>
     // fire up the plugin
-    videojs('video',{plugins:{ads:{},preroll:{src:"http://static.bouncingminds.com/ads/5secs/baileys_5sec.mp4",href:"http://videojs.com"}}});
+    videojs('video', {
+      techOrder: ["youtube", "html5", "flash"],
+      plugins: {
+        ads:{},
+        preroll: {
+          skipTime: 3,
+          src:"https://www.youtube.com/watch?v=c1WMfW-0bow",
+          type:"video/youtube",
+          href:"http://videojs.com"
+        }
+      }
+    });
   </script>
 </body>
 </html>

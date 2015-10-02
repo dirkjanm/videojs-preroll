@@ -7,6 +7,7 @@
 
   var defaults = {
     src : '',
+    type : '',
     href : '',
     target: '_blank',
     allowSkip: true,
@@ -41,7 +42,7 @@
       player.ads.startLinearAdMode();
 
       // Change player src to ad src
-      player.src(settings.src);
+      player.src({ src: settings.src, type: (settings.type === '' ? player.type : settings.type) });
       player.one('durationchange', function() {
         player.play();
       });
