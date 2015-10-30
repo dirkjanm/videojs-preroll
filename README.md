@@ -2,6 +2,11 @@
 
 Simple video.js plugin that uses the video.js' [videojs-contrib-ads](https://github.com/videojs/videojs-contrib-ads) plugin to display a preroll video before the main video starts.
 
+## Warning
+
+This branch of the plugin currently only works with video.js 5.0 or newer (current version) with videojs-contrib-ads 3.0 (currently in [development](https://github.com/videojs/videojs-contrib-ads/pull/121)).
+For users migrating from version 0.2.0, make sure your configuration style matches the one below.
+
 ## Adding the plugin
 
 Download the [videojs-contrib-ads](https://raw.githubusercontent.com/videojs/videojs-contrib-ads/master/src/videojs.ads.js) plugin or [build it yourself](https://github.com/videojs/videojs-contrib-ads) from the repository. Include videojs.ads.js and videojs-preroll after including video.js itself.
@@ -24,7 +29,12 @@ Initialize the plugin:
   <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
 </video>
 <script>
-videojs('example_video_1', {plugins:{ads:{},preroll:{src:"advertisement.mp4"}}});
+videojs('example_video_1', {}, function(){ 
+  var player = this;
+  player.preroll({
+    src:"advertisement.mp4"
+  });
+});
 </script>
 ```
 
@@ -37,9 +47,9 @@ You may pass in an options object to the plugin upon initialization. This
 object may contain any of the following properties:
 
 #### src
-Type: `String`
+Type: `String` | `Object` | `Array`
 
-`Required`. Source video file to play
+`Required`. Source video file to play. Can be any valid [videojs src parameter](http://docs.videojs.com/docs/api/player.html#Methodssrc)
 
 #### href
 Type: `String`
@@ -70,11 +80,35 @@ Default: false
 
 Whether the ad should be repeated if a new src is loaded to the player
 
+#### adsOptions
+Type: `Object`
+Default: {}
+
+Settings object passed to the videjs-contrib-ads plugin.
+
+#### lang
+Type: `Object`
+Default: 
+```javascript
+{
+    'skip':'Skip',
+    'skip in': 'Skip in '
+}
+```
+Language strings for skip button.
+
 ## Credits
 
 Uses javascript and css for video skipping and linking block from The Onions [videojs-vast-plugin](https://github.com/theonion/videojs-vast-plugin/)
 
 ## Release History
+
+###v1.0.0
+- Updated videojs-contrib-ads library to v3.0.0 and made the preroll plugin compatible with it
+- Changed plugin for video.js v5.0.0
+- Added language to config
+- Changed the recommended setup to ensure videojs-contrib-ads loads properly
+- Fixed issue when preload was set to "none" which caused the player to require another click on the play button
 
 ###v0.2.0
 - Updated videojs-contrib-ads library to v0.5.0 and made the preroll plugin compatible with it

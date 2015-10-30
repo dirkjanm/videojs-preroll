@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Video.js Preroll</title>
 
-  <link href="node_modules/video.js/dist/video-js/video-js.css" rel="stylesheet">
+  <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
   <link href="lib/videojs.ads.css" rel="stylesheet">
   <link href="src/videojs-preroll.css" rel="stylesheet" type="text/css">
 
@@ -31,7 +31,7 @@
       Look at the source of this page to see how to use it with your videos.
     </p>
   </div>
-  <video id="video"
+  <video id="examplePlayer"
          class="video-js vjs-default-skin"
          height="300"
          width="600"
@@ -39,15 +39,22 @@
     <p>
       Your browser doesn't support video. Please <a href="http://browsehappy.com/">upgrade your browser</a> to see the example.
     </p>
-    <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-    <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type="video/mp4">
   </video>
-  <script src="node_modules/video.js/dist/video-js/video.js"></script>
+  <script src="node_modules/video.js/dist/video.js"></script>
+
   <script src="lib/videojs.ads.js"></script>
   <script src="src/videojs-preroll.js"></script>
   <script>
     // fire up the plugin
-    videojs('video',{plugins:{ads:{},preroll:{src:"http://static.bouncingminds.com/ads/5secs/baileys_5sec.mp4",href:"http://videojs.com"}}});
+    videojs('examplePlayer',{},function(){
+      var player = this;
+      player.preroll({
+        src:{src:"http://sanoweb.nl/upload/advertisement.mp4",type:"video/mp4"},
+        href:"http://videojs.com",
+        adsOptions: {debug:true}
+      });
+    });
   </script>
 </body>
 </html>

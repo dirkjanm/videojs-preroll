@@ -1,7 +1,11 @@
 {
   "name": "videojs-preroll",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "author": "Sano Webdevelopment",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dirkjanm/videojs-preroll.git"
+  },
   "description": "Simple preroll ads plugin for video.js",
   "license": "MIT",
   "keywords": [
@@ -20,10 +24,10 @@
     "grunt-contrib-uglify": "^0.2",
     "grunt-contrib-watch": "^0.4",
 
-    "video.js": "^4.5",
+    "video.js": ">=5.0",
     "qunitjs": "^1.12"
   },
   "peerDependencies": {
-    "video.js": "^4.5"
+    "video.js": ">=5.0"
   }
 }
