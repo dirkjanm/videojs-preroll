@@ -2,9 +2,9 @@
 
 Simple video.js plugin that uses the video.js' [videojs-contrib-ads](https://github.com/videojs/videojs-contrib-ads) plugin to display a preroll video before the main video starts.
 
-## Warning
+## Requirements
 
-This branch of the plugin currently only works with video.js 5.0 or newer (current version) with videojs-contrib-ads 3.0 (currently in [development](https://github.com/videojs/videojs-contrib-ads/pull/121)).
+This plugin requires video.js 5.0 or newer with videojs-contrib-ads 3.0 or newer.
 For users migrating from version 0.2.0, make sure your configuration style matches the one below.
 
 ## Adding the plugin
