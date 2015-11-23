@@ -6,12 +6,17 @@
   'use strict';
 
   var defaults = {
-    src : '',
-    href : '',
-    target: '_blank',
-    allowSkip: true,
-    skipTime: 5,
-    repeatAd: false
+    src : '', //Advertisement source, can also be an object like {src:"file.mp4",type:"video/mp4"}
+    href : '', //Advertised url
+    target: '_blank', //Target to open the ad url in
+    allowSkip: true, //Allow skipping of the ad after a certain period
+    skipTime: 5, //Seconds after which the ad can be skipped
+    repeatAd: false, //Show the ad only once or after every conten
+    adsOptions: {}, //Options passed to the ads plugin
+    lang: {
+      'skip':'Skip',
+      'skip in': 'Skip in '
+    } //Language entries for translation
   }, prerollPlugin;
 
   /**
@@ -21,7 +26,8 @@
    *            (optional) {object} configuration for the plugin
    */
   prerollPlugin = function(options) {
-    var settings = videojs.util.mergeOptions(defaults, options), player = this;
+    var settings = videojs.mergeOptions(defaults, options), player = this;
+    player.ads(settings.adsOptions);
     player.preroll = {adDone:false};
     player.on('contentupdate', function() {
       if(!player.preroll.shouldPlayPreroll()){
@@ -48,6 +54,9 @@
 
       //Fallback in case preload = none
       player.one('progress', function() {
+        player.play();
+      });
+      player.one('adloadstart',function(){
         player.play();
       });
 
@@ -81,9 +90,9 @@
             return false;
           }
         };
-        player.on('timeupdate', player.preroll.timeupdate);
+        player.on('adtimeupdate', player.preroll.timeupdate);
       }
-      player.one('ended', player.preroll.exitPreroll);
+      player.one('adended', player.preroll.exitPreroll);
       player.one('error', player.preroll.prerollError);
     });
     player.preroll.shouldPlayPreroll = function(){
@@ -102,8 +111,8 @@
       if(typeof player.preroll.blocker !== 'undefined'){
         player.preroll.blocker.parentNode.removeChild(player.preroll.blocker);
       }
-      player.off('timeupdate', player.preroll.timeupdate);
-      player.off('ended', player.preroll.exitPreroll);
+      //player.off('timeupdate', player.preroll.timeupdate);
+      player.off('adended', player.preroll.exitPreroll);
       player.off('error', player.preroll.prerollError);
       if (settings.repeatAd !== true){
         player.preroll.adDone=true;
@@ -114,11 +123,11 @@
       player.loadingSpinner.el().style.display = 'none';
       var timeLeft = Math.ceil(settings.skipTime - player.currentTime());
       if(timeLeft > 0) {
-        player.preroll.skipButton.innerHTML = 'Skip in ' + timeLeft + '...';
+        player.preroll.skipButton.innerHTML = settings.lang['skip in'] + timeLeft + '...';
       } else {
         if((' ' + player.preroll.skipButton.className + ' ').indexOf(' enabled ') === -1){
           player.preroll.skipButton.className += ' enabled';
-          player.preroll.skipButton.innerHTML = 'Skip';
+          player.preroll.skipButton.innerHTML = settings.lang.skip;
         }
       }
     };
