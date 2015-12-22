@@ -79,10 +79,11 @@
         player.preroll.skipButton = skipButton;
         player.el().appendChild(skipButton);
 
-        skipButton.onclick = function(e) {
+        skipButton.onclick = function(e) {			
           var Event = Event || window.Event;
           if((' ' + player.preroll.skipButton.className + ' ').indexOf(' enabled ') >= 0) {
             player.preroll.exitPreroll();
+			player.play();			
           }
           if(Event.prototype.stopPropagation !== undefined) {
             e.stopPropagation();
@@ -138,7 +139,8 @@
       if(player.preroll.shouldPlayPreroll()){
         player.trigger('adsready');
       }else{
-        player.trigger('adscanceled');
+		player.trigger('adscanceled');
+		// player.play();
       }
     }
   };
