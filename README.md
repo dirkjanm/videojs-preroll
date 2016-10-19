@@ -60,25 +60,37 @@ Url to redirect to if user clicks on the ad. Can be left empty for no redirectio
 Type: `String`
 Default: _blank
 
-Target to open the url in (eg _blank or _top)
+Target to open the url in (eg _blank or _top).
 
 #### allowSkip
 Type: `Boolean`
 Default: true
 
-Allow the user to skip the ad when it has played for a number of seconds
+Allow the user to skip the ad when it has played for a number of seconds.
 
 #### skipTime
 Type: `Integer`
 Default: 5
 
-Number of seconds after which the video can be skipped
+Number of seconds after which the video can be skipped.
 
 #### repeatAd
 Type: `Boolean`
 Default: false
 
-Whether the ad should be repeated if a new src is loaded to the player
+Whether the ad should be repeated if a new src is loaded to the player.
+
+#### adSign
+Type: `Boolean`
+Default: false
+
+Adds an "Advertisement" sign to the video.
+
+#### showRemaining
+Type: `Boolean`
+Default: false
+
+Show the remaining time of the ad (only if `allowSkip` is set to false.)
 
 #### adsOptions
 Type: `Object`
@@ -92,16 +104,24 @@ Default:
 ```javascript
 {
     'skip':'Skip',
-    'skip in': 'Skip in '
+    'skip in': 'Skip in ',
+    'advertisement': 'Advertisement',
+    'video start in': 'Video will start in: '
 }
 ```
-Language strings for skip button.
+Language strings for skip button, "Advertisement" sign and remaining ad time element.
 
 ## Credits
 
 Uses javascript and css for video skipping and linking block from The Onions [videojs-vast-plugin](https://github.com/theonion/videojs-vast-plugin/)
 
 ## Release History
+
+###v1.1.0
+- Added "Advertisement" sign option
+- Added remaininf time sign option
+- Modified loadingSpinner behavior ro use native hide/show functions
+- Added loadingSpinner show, bigPlayButton hide and posterImage hide to exitPreroll to provide loading status feedback to user
 
 ###v1.0.0
 - Updated videojs-contrib-ads library to v3.0.0 and made the preroll plugin compatible with it
