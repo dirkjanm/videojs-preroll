@@ -119,8 +119,8 @@ Uses javascript and css for video skipping and linking block from The Onions [vi
 
 ###v1.1.0
 - Added "Advertisement" sign option
-- Added remaininf time sign option
-- Modified loadingSpinner behavior ro use native hide/show functions
+- Added remaining time sign option
+- Modified loadingSpinner behavior to use native hide/show functions
 - Added loadingSpinner show, bigPlayButton hide and posterImage hide to exitPreroll to provide loading status feedback to user
 
 ###v1.0.0
