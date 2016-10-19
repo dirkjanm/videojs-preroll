@@ -9,7 +9,7 @@
     src : '', //Advertisement source, can also be an object like {src:"file.mp4",type:"video/mp4"}
     href : '', //Advertised url
     target: '_blank', //Target to open the ad url in
-    allowSkip: false, //Allow skipping of the ad after a certain period
+    allowSkip: true, //Allow skipping of the ad after a certain period
     skipTime: 5, //Seconds after which the ad can be skipped
     repeatAd: false, //Show the ad only once or after every conten
     adSign: false, //Advertisement sign
