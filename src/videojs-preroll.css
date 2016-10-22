@@ -1,37 +1,47 @@
-.preroll-skip-button {
-    display: block;
-    position: absolute;
-    top: 5px;
-    right: 0;
-    width: auto;
-    background-color: #000;
-    color: #AAA;
-    font-size: 12px;
-    font-style: italic;
-    line-height: 12px;
-    padding: 10px;
-    z-index: 2;
+.preroll-skip-button, .advertisement-box, .remaining-time {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: 0;
+  width: auto;
+  background-color: rgba(0,0,0,.5);
+  color: #aaa;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 12px;
+  padding: 10px;
+  z-index: 2;
+  border: 1px solid rgba(255,255,255,.35);
+  border-right: none;
+}
+
+.advertisement-box {
+  right: auto;
+  left: 0;
+  font-style: normal;
+  border-right: 1px solid rgba(255,255,255,.35);
+  border-left: none;
 }
 
 .preroll-skip-button.enabled {
-    cursor: pointer;
-    color: #fff;
+  cursor: pointer;
+  color: #fff;
 }
 
 .preroll-skip-button.enabled:hover {
-    cursor: pointer;
-    background: #333;
+  cursor: pointer;
+  background: #333;
 }
 
 .preroll-blocker {
-    display: block;
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  display: block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
