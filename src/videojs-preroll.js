@@ -76,15 +76,15 @@
         player.preroll.blocker = blocker;
         player.el().insertBefore(blocker, player.controlBar.el());
       }
-      
+
       if(settings.adSign !== false){
         var adBox = document.createElement('div');
         adBox.className = 'advertisement-box';
         player.preroll.adBox = adBox;
         player.el().appendChild(adBox);
-        player.preroll.adBox.innerHTML = settings.lang['advertisement'];
+        player.preroll.adBox.innerHTML = settings.lang.advertisement;
       }
-      
+
       if(settings.showRemaining !== false && settings.allowSkip === false){
         var remainingTime = document.createElement('div');
         remainingTime.className = 'remaining-time';
