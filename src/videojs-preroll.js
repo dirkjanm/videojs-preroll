@@ -94,6 +94,23 @@
         player.on('adtimeupdate', player.preroll.timeremaining);
       }
 
+      if(settings.adSign !== false){
+        var adBox = document.createElement('div');
+        adBox.className = 'advertisement-box';
+        player.preroll.adBox = adBox;
+        player.el().appendChild(adBox);
+        player.preroll.adBox.innerHTML = settings.lang.advertisement;
+      }
+
+      if(settings.showRemaining !== false && settings.allowSkip === false){
+        var remainingTime = document.createElement('div');
+        remainingTime.className = 'remaining-time';
+        player.preroll.remainingTime = remainingTime;
+        player.el().appendChild(remainingTime);
+        player.preroll.remainingTime.innerHTML = settings.lang['video start in'];
+        player.on('adtimeupdate', player.preroll.timeremaining);
+      }
+
       if (settings.allowSkip !== false){
         var skipButton = document.createElement('div');
         skipButton.className = 'preroll-skip-button';
