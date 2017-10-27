@@ -82,7 +82,7 @@
         adBox.className = 'advertisement-box';
         player.preroll.adBox = adBox;
         player.el().appendChild(adBox);
-        player.preroll.adBox.innerHTML = settings.lang.advertisement;
+        player.preroll.adBox.innerHTML = settings.lang['advertisement'];
       }
 
       if(settings.showRemaining !== false && settings.allowSkip === false){
@@ -180,6 +180,9 @@
     }
   };
 
-  // register the plugin
-  videojs.plugin('preroll', prerollPlugin);
+  // Register the plugin
+  var registerPlugin = videojs.registerPlugin || videojs.plugin;
+  registerPlugin('preroll', prerollPlugin);
+
+
 })(window, window.videojs);
