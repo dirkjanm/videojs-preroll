@@ -1,5 +1,5 @@
-/*! videojs-preroll - v1.1.0 - 2016-10-22
-* Copyright (c) 2016 Sano Webdevelopment;
+/*! videojs-preroll - v1.0.0 - 2015-10-30
+* Copyright (c) 2015 Sano Webdevelopment;
 * Copyright (c) 2014 The Onion
 * Licensed MIT */
 (function(window, videojs) {
@@ -12,23 +12,19 @@
     allowSkip: true, //Allow skipping of the ad after a certain period
     skipTime: 5, //Seconds after which the ad can be skipped
     repeatAd: false, //Show the ad only once or after every conten
-    adSign: false, //Advertisement sign
-    showRemaining: false, //Show remaining ad time > works if allowSkip is false
     adsOptions: {}, //Options passed to the ads plugin
     lang: {
       'skip':'Skip',
-      'skip in': 'Skip in ',
-      'advertisement': 'Advertisement',
-      'video start in': 'Video will start in: '
+      'skip in': 'Skip in '
     } //Language entries for translation
   }, prerollPlugin;
 
-  //
-  // Initialize the plugin.
-  //
-  // @param options
-  //            (optional) {object} configuration for the plugin
-  //
+  /**
+   * Initialize the plugin.
+   *
+   * @param options
+   *            (optional) {object} configuration for the plugin
+   */
   prerollPlugin = function(options) {
     var settings = videojs.mergeOptions(defaults, options), player = this;
     player.ads(settings.adsOptions);
@@ -77,23 +73,6 @@
         player.el().insertBefore(blocker, player.controlBar.el());
       }
 
-      if(settings.adSign !== false){
-        var adBox = document.createElement('div');
-        adBox.className = 'advertisement-box';
-        player.preroll.adBox = adBox;
-        player.el().appendChild(adBox);
-        player.preroll.adBox.innerHTML = settings.lang.advertisement;
-      }
-
-      if(settings.showRemaining !== false && settings.allowSkip === false){
-        var remainingTime = document.createElement('div');
-        remainingTime.className = 'remaining-time';
-        player.preroll.remainingTime = remainingTime;
-        player.el().appendChild(remainingTime);
-        player.preroll.remainingTime.innerHTML = settings.lang['video start in'];
-        player.on('adtimeupdate', player.preroll.timeremaining);
-      }
-
       if (settings.allowSkip !== false){
         var skipButton = document.createElement('div');
         skipButton.className = 'preroll-skip-button';
@@ -129,12 +108,6 @@
       if(typeof player.preroll.skipButton !== 'undefined'){
         player.preroll.skipButton.parentNode.removeChild(player.preroll.skipButton);
       }
-      if(typeof player.preroll.adBox !== 'undefined'){
-        player.preroll.adBox.parentNode.removeChild(player.preroll.adBox);
-      }
-      if(typeof player.preroll.remainingTime !== 'undefined'){
-        player.preroll.remainingTime.parentNode.removeChild(player.preroll.remainingTime);
-      }
       if(typeof player.preroll.blocker !== 'undefined'){
         player.preroll.blocker.parentNode.removeChild(player.preroll.blocker);
       }
@@ -144,13 +117,10 @@
       if (settings.repeatAd !== true){
         player.preroll.adDone=true;
       }
-      player.loadingSpinner.show(); //Show Spinner to provide feedback of video loading status to user
-      player.posterImage.hide(); //Hide Poster Image to provide feedback of video loading status to user
-      player.bigPlayButton.hide(); //Hide Play Button to provide feedback of video loading status to user
       player.ads.endLinearAdMode();
     };
     player.preroll.timeupdate = function(e) {
-      player.loadingSpinner.hide();
+      player.loadingSpinner.el().style.display = 'none';
       var timeLeft = Math.ceil(settings.skipTime - player.currentTime());
       if(timeLeft > 0) {
         player.preroll.skipButton.innerHTML = settings.lang['skip in'] + timeLeft + '...';
@@ -159,13 +129,6 @@
           player.preroll.skipButton.className += ' enabled';
           player.preroll.skipButton.innerHTML = settings.lang.skip;
         }
-      }
-    };
-    player.preroll.timeremaining = function(e) {
-      player.loadingSpinner.hide();
-      var timeLeft = Math.ceil(player.remainingTime());
-      if(timeLeft > 0) {
-        player.preroll.remainingTime.innerHTML = settings.lang['video start in'] + timeLeft;
       }
     };
     player.preroll.prerollError = function(e){
