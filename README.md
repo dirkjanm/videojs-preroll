@@ -29,7 +29,7 @@ Initialize the plugin:
   <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
 </video>
 <script>
-videojs('example_video_1', {}, function(){ 
+videojs('example_video_1', {}, function(){
   var player = this;
   player.preroll({
     src:"advertisement.mp4"
@@ -100,7 +100,7 @@ Settings object passed to the videjs-contrib-ads plugin.
 
 #### lang
 Type: `Object`
-Default: 
+Default:
 ```javascript
 {
     'skip':'Skip',
@@ -117,24 +117,27 @@ Uses javascript and css for video skipping and linking block from The Onions [vi
 
 ## Release History
 
-###v1.1.0
+### v1.1.1
+- Added cross-compatibility with Video.js version 5 and 6
+
+### v1.1.0
 - Added "Advertisement" sign option
 - Added remaining time sign option
 - Modified loadingSpinner behavior to use native hide/show functions
 - Added loadingSpinner show, bigPlayButton hide and posterImage hide to exitPreroll to provide loading status feedback to user
 
-###v1.0.0
+### v1.0.0
 - Updated videojs-contrib-ads library to v3.0.0 and made the preroll plugin compatible with it
 - Changed plugin for video.js v5.0.0
 - Added language to config
 - Changed the recommended setup to ensure videojs-contrib-ads loads properly
 - Fixed issue when preload was set to "none" which caused the player to require another click on the play button
 
-###v0.2.0
+### v0.2.0
 - Updated videojs-contrib-ads library to v0.5.0 and made the preroll plugin compatible with it
 - Fixed some of the loading events to start playback faster if there is no ad to be displayed
 
-###v0.1.0
+### v0.1.0
 - Initial release
 
 ## License

@@ -180,6 +180,8 @@
     }
   };
 
-  // register the plugin
-  videojs.plugin('preroll', prerollPlugin);
+  // Register the plugin (cross-compatibility for Video.js 5 and 6)
+  var registerPlugin = videojs.registerPlugin || videojs.plugin;
+  registerPlugin('preroll', prerollPlugin);
+
 })(window, window.videojs);
