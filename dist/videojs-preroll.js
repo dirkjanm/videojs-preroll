@@ -1,5 +1,5 @@
-/*! videojs-preroll - v1.1.0 - 2016-10-22
-* Copyright (c) 2016 Sano Webdevelopment;
+/*! videojs-preroll - v2.0.0 - 2019-01-16
+* Copyright (c) 2019 Sano Webdevelopment;
 * Copyright (c) 2014 The Onion
 * Licensed MIT */
 (function(window, videojs) {
@@ -180,6 +180,6 @@
     }
   };
 
-  // register the plugin
-  videojs.plugin('preroll', prerollPlugin);
+  videojs.registerPlugin('preroll', prerollPlugin);
+
 })(window, window.videojs);

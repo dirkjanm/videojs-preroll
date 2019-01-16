@@ -1,6 +1,6 @@
 {
   "name": "videojs-preroll",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "author": "Sano Webdevelopment",
   "repository": {
     "type": "git",
@@ -15,19 +15,18 @@
     "video",
     "player"
   ],
-  "dependencies": {},
   "devDependencies": {
-    "grunt-contrib-clean": "^0.4",
-    "grunt-contrib-concat": "^0.3",
-    "grunt-contrib-jshint": "^0.6",
-    "grunt-contrib-qunit": "^0.2",
-    "grunt-contrib-uglify": "^0.2",
-    "grunt-contrib-watch": "^0.4",
-
-    "video.js": ">=5.0",
-    "qunitjs": "^1.12"
+    "grunt-contrib-clean": "^2",
+    "grunt-contrib-concat": "^1",
+    "grunt-contrib-jshint": "^2",
+    "grunt-contrib-qunit": "^3",
+    "grunt-contrib-uglify": "^4",
+    "grunt-contrib-watch": "^1",
+    "qunitjs": "^1.12",
+    "video.js": "^7.0",
+    "videojs-contrib-ads": "^6.6.1"
   },
-  "peerDependencies": {
-    "video.js": ">=5.0"
+  "dependencies": {
+    "grunt": "^1.0.3"
   }
 }

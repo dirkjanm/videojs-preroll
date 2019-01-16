@@ -31,7 +31,7 @@
     setup: function() {
       // force HTML support so the tests run in a reasonable
       // environment under phantomjs
-      var Html5 = videojs.getComponent('Html5');
+      var Html5 = videojs.getTech('Html5');
       realIsHtmlSupported = Html5.isSupported;
       Html5.isSupported = function() {
         return true;
@@ -48,7 +48,7 @@
       player.preroll();
     },
     teardown: function() {
-      var Html5 = videojs.getComponent('Html5');
+      var Html5 = videojs.getTech('Html5');
       Html5.isSupported = realIsHtmlSupported;
     }
   });
