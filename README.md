@@ -4,7 +4,8 @@ Simple video.js plugin that uses the video.js' [videojs-contrib-ads](https://git
 
 ## Requirements
 
-This plugin requires video.js 5.0 or newer with videojs-contrib-ads 3.0 or newer.
+This plugin requires video.js 7.0 or newer with videojs-contrib-ads 3.0 or newer.
+The package.json now specifies version 6 of videojs-contrib-ads
 For users migrating from version 0.2.0, make sure your configuration style matches the one below.
 
 ## Adding the plugin

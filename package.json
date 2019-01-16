@@ -22,8 +22,9 @@
     "grunt-contrib-qunit": "^3",
     "grunt-contrib-uglify": "^4",
     "grunt-contrib-watch": "^1",
+    "qunitjs": "^1.12",
     "video.js": "^7.0",
-    "qunitjs": "^1.12"
+    "videojs-contrib-ads": "^6.6.1"
   },
   "dependencies": {
     "grunt": "^1.0.3"
