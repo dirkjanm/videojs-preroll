@@ -5,8 +5,11 @@ Simple video.js plugin that uses the video.js' [videojs-contrib-ads](https://git
 ## Requirements
 
 This plugin requires video.js 7.0 or newer with videojs-contrib-ads 3.0 or newer.
-The package.json now specifies version 6 of videojs-contrib-ads
 For users migrating from version 0.2.0, make sure your configuration style matches the one below.
+
+## Fork Notes
+The original mantainer seems to no longer be active. This fork updates to version 7 of videojs and drops pre-7 compatiblity.
+The package.json now specifies version 6 of videojs-contrib-ads. Note, however, that this has not been tested in a production environment. Until it is, you may prefer to use the version [copied at the source](https://github.com/dirkjanm/videojs-preroll/tree/master/lib). If you use version 6 successfuly, please PR to remove this message. In the next week or so I plan to do more thorough testing.
 
 ## Adding the plugin
 
