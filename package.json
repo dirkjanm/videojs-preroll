@@ -15,19 +15,17 @@
     "video",
     "player"
   ],
-  "dependencies": {},
   "devDependencies": {
-    "grunt-contrib-clean": "^0.4",
-    "grunt-contrib-concat": "^0.3",
-    "grunt-contrib-jshint": "^0.6",
-    "grunt-contrib-qunit": "^0.2",
-    "grunt-contrib-uglify": "^0.2",
-	"grunt-contrib-watch": "^0.4",
-	
-    "video.js": ">=5.0",
+    "grunt-contrib-clean": "^2",
+    "grunt-contrib-concat": "^1",
+    "grunt-contrib-jshint": "^2",
+    "grunt-contrib-qunit": "^3",
+    "grunt-contrib-uglify": "^4",
+    "grunt-contrib-watch": "^1",
+    "video.js": "^7.0",
     "qunitjs": "^1.12"
   },
-  "peerDependencies": {
-    "video.js": ">=5.0"
+  "dependencies": {
+    "grunt": "^1.0.3"
   }
 }
