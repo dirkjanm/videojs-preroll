@@ -1,33 +1,96 @@
 {
   "name": "videojs-preroll",
-  "version": "1.1.0",
-  "author": "Sano Webdevelopment",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dirkjanm/videojs-preroll.git"
+  "version": "2.0.0",
+  "description": "Simple preroll plugin for video.js",
+  "main": "cjs/plugin.js",
+  "module": "es/plugin.js",
+  "browser": "dist/videojs-preroll.js",
+  "generator-videojs-plugin": {
+    "version": "8.0.0"
   },
-  "description": "Simple preroll ads plugin for video.js",
-  "license": "MIT",
+  "scripts": {
+    "build": "npm-run-all -s clean -p build:*",
+    "build-prod": "cross-env-shell NO_TEST_BUNDLE=1 'npm run build'",
+    "build-test": "cross-env-shell TEST_BUNDLE_ONLY=1 'npm run build'",
+    "build:cjs": "babel-config-cjs -d ./cjs ./src",
+    "build:css": "postcss -o dist/videojs-preroll.css --config scripts/postcss.config.js src/plugin.css",
+    "build:es": "babel-config-es -d ./es ./src",
+    "build:js": "rollup -c scripts/rollup.config.js",
+    "clean": "shx rm -rf ./dist ./test/dist ./cjs ./es && shx mkdir -p ./dist ./test/dist ./cjs ./es",
+    "lint": "vjsstandard",
+    "server": "karma start scripts/karma.conf.js --singleRun=false --auto-watch",
+    "start": "npm-run-all -p server watch",
+    "test": "npm-run-all lint build-test && karma start scripts/karma.conf.js",
+    "posttest": "shx cat test/dist/coverage/text.txt",
+    "update-changelog": "conventional-changelog -p videojs -i CHANGELOG.md -s",
+    "preversion": "npm test",
+    "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
+    "watch": "npm-run-all -p watch:*",
+    "watch:cjs": "npm run build:cjs -- -w",
+    "watch:css": "npm run build:css -- -w",
+    "watch:es": "npm run build:es -- -w",
+    "watch:js": "npm run build:js -- -w",
+    "prepublishOnly": "npm-run-all build-prod && vjsverify --verbose"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
   "keywords": [
     "videojs",
-    "html5",
-    "flash",
-    "video",
-    "player"
+    "videojs-plugin"
   ],
-  "dependencies": {},
-  "devDependencies": {
-    "grunt-contrib-clean": "^0.4",
-    "grunt-contrib-concat": "^0.3",
-    "grunt-contrib-jshint": "^0.6",
-    "grunt-contrib-qunit": "^0.2",
-    "grunt-contrib-uglify": "^0.2",
-    "grunt-contrib-watch": "^0.4",
-
-    "video.js": ">=5.0",
-    "qunitjs": "^1.12"
+  "author": "Sano Webdevelopment",
+  "license": "MIT",
+  "vjsstandard": {
+    "ignore": [
+      "es",
+      "cjs",
+      "dist",
+      "docs",
+      "test/dist"
+    ]
   },
-  "peerDependencies": {
-    "video.js": ">=5.0"
+  "files": [
+    "CONTRIBUTING.md",
+    "cjs/",
+    "dist/",
+    "docs/",
+    "es/",
+    "index.html",
+    "scripts/",
+    "src/",
+    "test/"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.js": "vjsstandard --fix",
+    "README.md": "doctoc --notitle"
+  },
+  "dependencies": {
+    "global": "^4.4.0",
+    "video.js": "^6 || ^7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/runtime": "^7.14.0",
+    "@videojs/babel-config": "^0.2.0",
+    "@videojs/generator-helpers": "~2.0.2",
+    "karma": "^6.3.2",
+    "postcss": "^8.2.13",
+    "postcss-cli": "^8.3.1",
+    "rollup": "^2.46.0",
+    "sinon": "^9.1.0",
+    "videojs-contrib-ads": "^6.9.0",
+    "videojs-generate-karma-config": "~8.0.0",
+    "videojs-generate-postcss-config": "~3.0.0",
+    "videojs-generate-rollup-config": "~6.2.0",
+    "videojs-generator-verify": "~3.0.3",
+    "videojs-standard": "^8.0.4"
   }
 }

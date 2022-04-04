@@ -1,11 +1,42 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Video.js Simple Prerolls](#videojs-simple-prerolls)
+  - [Requirements](#requirements)
+  - [Adding the plugin](#adding-the-plugin)
+  - [Changing Advertisement source dynamically](#changing-advertisement-source-dynamically)
+  - [Documentation](#documentation)
+    - [Plugin Options](#plugin-options)
+      - [src](#src)
+      - [href](#href)
+      - [target](#target)
+      - [allowSkip](#allowskip)
+      - [skipTime](#skiptime)
+      - [repeatAd](#repeatad)
+      - [adSign](#adsign)
+      - [showRemaining](#showremaining)
+      - [adsOptions](#adsoptions)
+      - [lang](#lang)
+  - [Credits](#credits)
+  - [Release History](#release-history)
+    - [v2.0.0](#v200)
+    - [v1.1.1](#v111)
+    - [v1.1.0](#v110)
+    - [v1.0.0](#v100)
+    - [v0.2.0](#v020)
+    - [v0.1.0](#v010)
+  - [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Video.js Simple Prerolls
 
 Simple video.js plugin that uses the video.js' [videojs-contrib-ads](https://github.com/videojs/videojs-contrib-ads) plugin to display a preroll video before the main video starts.
 
 ## Requirements
 
-This plugin requires video.js 5.0 or newer with videojs-contrib-ads 3.0 or newer.
-For users migrating from version 0.2.0, make sure your configuration style matches the one below.
+This plugin works with VideoJS 6 and up. To use it with VideoJS 5, please use `videojs-contrib-ads@5.2.0-1`. This plugin also can be used with `videojs-playlist` and the source of ad can be changed dynamically by assigning new ad src in the `beforeplaylistitem` event hook of `videojs-playlist`. 
 
 ## Adding the plugin
 
@@ -38,7 +69,29 @@ videojs('example_video_1', {}, function(){
 </script>
 ```
 
+Using `npm`
+```sh
+npm install --save videojs-preroll-v2
+```
+
 There's also a [working example](example.html) of the plugin you can check out if you're having trouble.
+
+## Changing Advertisement source dynamically
+
+While using with `videojs-playist`, you can change the adverstisement source dynamically like this. Other options can also be changed by assigning corresponding value to corresponding properties like `player.options.[property]=[value]`
+
+```js
+      examplePlayer.on('beforeplaylistitem', function(){
+        let currentVideoIndex = examplePlayer.playlist.currentIndex();
+        console.log('Current Index: ', currentVideoIndex);
+        examplePlayer.preroll.options.allowSkip = true;
+        examplePlayer.preroll.adDone = false;
+        examplePlayer.preroll.options.src = adSources[currentVideoIndex + 1];
+        if(currentVideoIndex >= 1){
+          examplePlayer.preroll.options.repeatAd = false;
+        }
+      });
+```
 
 ## Documentation
 ### Plugin Options
@@ -59,8 +112,7 @@ Url to redirect to if user clicks on the ad. Can be left empty for no redirectio
 #### target
 Type: `String`
 Default: _blank
-
-Target to open the url in (eg _blank or _top).
+Target to open the url in (eg _blank or _top)
 
 #### allowSkip
 Type: `Boolean`
@@ -116,6 +168,11 @@ Language strings for skip button, "Advertisement" sign and remaining ad time ele
 Uses javascript and css for video skipping and linking block from The Onions [videojs-vast-plugin](https://github.com/theonion/videojs-vast-plugin/)
 
 ## Release History
+
+### v2.0.0
+- Added cross-compatibility with VideoJS version 6 & 7
+- For compatibility with VideoJS version 5, `videojs-contrib-ads@5.2.0-1` must be used
+- Options, including advertisement source, can be changed dynamically
 
 ### v1.1.1
 - Added cross-compatibility with Video.js version 5 and 6
