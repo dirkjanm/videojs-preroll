@@ -1,60 +1,151 @@
 <!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Video.js Preroll</title>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <title>videojs-preroll Demo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.19.0/video-js.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.9.0/videojs-contrib-ads.css">
+    <link href="dist/videojs-preroll.css" rel="stylesheet">
+  </head>
+  <body>
+    <video id="videojs-preroll-player" class="video-js vjs-default-skin" controls autoplay>
 
-  <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
-  <link href="lib/videojs.ads.css" rel="stylesheet">
-  <link href="src/videojs-preroll.css" rel="stylesheet" type="text/css">
+    </video>
+    <ul>
+      <li><a href="/test/debug.html">Run unit tests in browser.</a></li>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .info {
-      background-color: #eee;
-      border: thin solid #333;
-      border-radius: 3px;
-      padding: 0 5px;
-      text-align: center;
-    }
-    .video-js {
-      margin: 40px auto;
-    }
-  </style>
-</head>
-<body>
-  <div class="info">
-    <p>
-      You can see the Video.js Preroll plugin in action below.
-      Look at the source of this page to see how to use it with your videos.
-    </p>
-  </div>
-  <video id="examplePlayer"
-         class="video-js vjs-default-skin"
-         height="300"
-         width="600"
-         controls>
-    <p>
-      Your browser doesn't support video. Please <a href="http://browsehappy.com/">upgrade your browser</a> to see the example.
-    </p>
-    <source src="http://sanoweb.nl/upload/big_buck_bunny.mp4" type="video/mp4">
-  </video>
-  <script src="node_modules/video.js/dist/video.js"></script>
+    </ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.19.0/video.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.9.0/videojs.ads.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-playlist@4.3.1/dist/videojs-playlist.js"></script>
+    <script src="dist/videojs-preroll.js"></script>
+    <script>
+      (function(window, videojs) {
 
-  <script src="lib/videojs.ads.js"></script>
-  <script src="src/videojs-preroll.js"></script>
-  <script>
-    // fire up the plugin
-    videojs('examplePlayer',{},function(){
-      var player = this;
-      player.preroll({
-        src:{src:"http://sanoweb.nl/upload/advertisement.mp4",type:"video/mp4"},
+
+        const SeekBar = videojs.getComponent('SeekBar')
+
+        SeekBar.prototype.getPercent = function getPercent() {
+        // Allows for smooth scrubbing, when player can't keep up.
+        // const time = (this.player_.scrubbing()) ?
+        // this.player_.getCache().currentTime :
+        // this.player_.currentTime()
+        const time = this.player_.currentTime()
+        const percent = time / this.player_.duration()
+        return percent >= 1 ? 1 : percent
+      }
+
+      SeekBar.prototype.handleMouseMove = function handleMouseMove(event) {
+        let newTime = this.calculateDistance(event) * this.player_.duration()
+        if (newTime === this.player_.duration()) {
+          newTime = newTime - 0.1
+        }
+        this.player_.currentTime(newTime)
+        this.update()
+      }
+
+      var examplePlayer = window.examplePlayer = videojs('videojs-preroll-player', {
+        autoplay: true,
+        playbackRates: [1,2,3],
+      });
+
+      let adSources = [
+      {
+        src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+        type: 'video/mp4',
+        adId: '123'
+      },
+      {
+        src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+        type: 'video/mp4',
+        adId: '124'
+      },
+      {
+        src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+        type: 'video/mp4',
+        adId: '126'
+      },
+      {
+        src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+        type: 'video/mp4',
+        adId: '125'
+      },
+      {
+        src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
+        type: 'video/mp4',
+        adId: '128'
+      },
+      ];
+
+      var preroll = window.preroll = examplePlayer.preroll({
+        src:{src: adSources[0].src ,type:"video/mp4"},
         href:"http://videojs.com",
+        adSign: true,
+        allowSkip: true,
+        repeatAd: false,
+        showRemaining: false,
         adsOptions: {debug:true}
       });
-    });
+
+      examplePlayer.playlist([{
+        sources: [{
+          src: 'http://media.w3.org/2010/05/sintel/trailer.mp4',
+          type: 'video/mp4',
+        }],
+        poster: 'http://media.w3.org/2010/05/sintel/poster.png'
+      }, {
+        sources: [{
+          src: 'http://media.w3.org/2010/05/bunny/trailer.mp4',
+          type: 'video/mp4'
+        }],
+        poster: 'http://media.w3.org/2010/05/bunny/poster.png'
+      }, {
+        sources: [{
+          src: 'http://vjs.zencdn.net/v/oceans.mp4',
+          type: 'video/mp4'
+        }],
+        poster: 'http://www.videojs.com/img/poster.jpg'
+      }, {
+        sources: [{
+          src: 'http://media.w3.org/2010/05/bunny/movie.mp4',
+          type: 'video/mp4'
+        }],
+        poster: 'http://media.w3.org/2010/05/bunny/poster.png'
+      }, {
+        sources: [{
+          src: 'http://media.w3.org/2010/05/video/movie_300.mp4',
+          type: 'video/mp4'
+        }],
+        poster: 'http://media.w3.org/2010/05/video/poster.png'
+      }]);
+
+      // Play through the playlist automatically.
+      examplePlayer.playlist.autoadvance(0);
+
+
+
+      examplePlayer.on('beforeplaylistitem', function(){
+        let currentVideoIndex = examplePlayer.playlist.currentIndex();
+        console.log('Current Index: ', currentVideoIndex);
+        examplePlayer.preroll.options.allowSkip = true;
+        examplePlayer.preroll.adDone = false;
+        examplePlayer.preroll.options.src = adSources[currentVideoIndex + 1];
+        if(currentVideoIndex >= 1){
+          examplePlayer.preroll.options.repeatAd = false;
+        }
+      });
+
+      examplePlayer.on('adclick', function(e){
+        console.log('Ad clicked');
+
+        adSources.map(item => {
+          const prerollVidSrc = examplePlayer.preroll.options.src;
+          if(item.src.toString() === prerollVidSrc.src.toString()) {console.log('Match Found: ', item);}
+        });
+      });
+
+
+    }(window, window.videojs));
   </script>
 </body>
 </html>

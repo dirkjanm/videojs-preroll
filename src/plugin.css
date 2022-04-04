@@ -1,26 +1,30 @@
 .preroll-skip-button, .advertisement-box, .remaining-time {
   display: block;
   position: absolute;
-  top: 5px;
-  right: 0;
+  bottom: 32px;
+  right: 0px;
   width: auto;
-  background-color: rgba(0,0,0,.5);
-  color: #aaa;
+  background-color: rgba(113, 28, 127, 0.4);
+  color: #fff;
   font-size: 12px;
-  font-style: italic;
+  /*font-style: italic;*/
+  font-weight: bold;
   line-height: 12px;
   padding: 10px;
   z-index: 2;
-  border: 1px solid rgba(255,255,255,.35);
-  border-right: none;
+  /*border: 1px solid rgba(255,255,255,.35);*/
+  /*border-right: none;*/
 }
 
 .advertisement-box {
+  display: inline-block;
   right: auto;
-  left: 0;
+  bottom: none;
+  left: 0px;
+  top: 0px;
   font-style: normal;
-  border-right: 1px solid rgba(255,255,255,.35);
-  border-left: none;
+  /*border-right: 1px solid rgba(255,255,255,.35);*/
+  /*border-left: none;*/
 }
 
 .preroll-skip-button.enabled {
@@ -44,4 +48,8 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.vjs-ad-playing div.vjs-control.vjs-playback-rate {
+  display: none;
 }

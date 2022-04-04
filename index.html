@@ -1,0 +1,31 @@
+<!doctype html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <title>videojs-preroll Demo</title>
+    <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.9.0/videojs-contrib-ads.css">
+    <link href="dist/videojs-preroll.css" rel="stylesheet">
+  </head>
+  <body>
+    <video id="videojs-preroll-player" class="video-js vjs-default-skin" controls>
+      <source src="//vjs.zencdn.net/v/oceans.mp4" type='video/mp4'>
+        <source src="//vjs.zencdn.net/v/oceans.webm" type='video/webm'>
+        </video>
+        <ul>
+          <li><a href="/test/debug.html">Run unit tests in browser.</a></li>
+
+        </ul>
+        <script src="node_modules/video.js/dist/video.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.9.0/videojs.ads.min.js"></script>
+        <script src="dist/videojs-preroll.js"></script>
+        <script>
+          (function(window, videojs) {
+            var examplePlayer = window.examplePlayer = videojs('videojs-preroll-player');
+            var preroll = window.preroll = examplePlayer.preroll({
+              src: 'advertisement.mp4'
+            });
+          }(window, window.videojs));
+        </script>
+      </body>
+      </html>
